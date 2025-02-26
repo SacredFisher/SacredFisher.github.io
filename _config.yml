@@ -1,0 +1,66 @@
+# Site settings
+title: SacredFisher's Blog
+email: your-email@example.com
+description: >- 
+  A multi-topic blog covering AI/ML, Science, Linear Algebra, Graph Theory, 
+  Math, Movies, Music, Meditation, Myths, and other topics.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://sacredfisher.github.io" # the base hostname & protocol
+github_username: SacredFisher
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Collections for organizing content
+collections:
+  ai-ml:
+    output: true
+    permalink: /ai-ml/:name
+  sci:
+    output: true
+    permalink: /sci/:name
+  linalg:
+    output: true
+    permalink: /linalg/:name
+  graphs:
+    output: true
+    permalink: /graphs/:name
+  math:
+    output: true
+    permalink: /math/:name
+  mov:
+    output: true
+    permalink: /mov/:name
+  musiq:
+    output: true
+    permalink: /musiq/:name
+  meditation:
+    output: true
+    permalink: /meditation/:name
+  myths:
+    output: true
+    permalink: /myths/:name
+  misc:
+    output: true
+    permalink: /misc/:name
+
+# Default front matter settings
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"

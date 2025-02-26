@@ -1,0 +1,46 @@
+---
+---
+
+@import "minima";
+
+// Your custom styles below
+.site-nav {
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    li {
+      margin-right: 1rem;
+      
+      a {
+        display: block;
+        padding: 0.5rem;
+        text-decoration: none;
+        
+        &.active {
+          font-weight: bold;
+          text-decoration: underline;
+        }
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  
+  .post-preview {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 5px;
+  }
+}
