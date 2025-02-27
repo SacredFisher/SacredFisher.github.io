@@ -1,14 +1,14 @@
 ---
 layout: page
-title: umyths
+title: myths
 permalink: /pages/myths.html
 ---
 
-# umyths
+# myths
 
-This is where I share thoughts, projects, and insights about umyths.
+mythology and esoterica. i love the stories that created the stories we create the world with. 
 
-## All umyths Posts
+## All myths Posts
 
 <ul class="post-list">
   {% for post in site.posts %}

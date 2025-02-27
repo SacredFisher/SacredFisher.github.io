@@ -1,9 +1,9 @@
 # Site settings
-title: SacredFisher's Blog
-email: your-email@example.com
+title: reflect(reflect)
+email: srikar.pamidi@gmail.com
 description: >- 
-  A multi-topic blog covering AI/ML, Science, Linear Algebra, Graph Theory, 
-  Math, Movies, Music, Meditation, Myths, and other topics.
+  my blog. more polished than my thoughts, less polished than i'd like. 
+
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://sacredfisher.github.io" # the base hostname & protocol
 github_username: SacredFisher

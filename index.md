@@ -3,11 +3,11 @@ layout: default
 title: Home
 ---
 
-# Welcome to My Multi-Topic Blog
+# reflections of reflections
 
-Exploring ideas across multiple disciplines.
+putting down the swimming thoughts of my mind.
 
-## Recent Posts
+## recent posts
 
 <div class="posts-grid">
   {% for post in site.posts limit:6 %}

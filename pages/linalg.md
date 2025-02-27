@@ -1,14 +1,14 @@
 ---
 layout: page
-title: uLinear Algebra
+title: linalg
 permalink: /pages/linalg.html
 ---
 
-# uLinear Algebra
+# linalg
 
-This is where I share thoughts, projects, and insights about uLinear Algebra.
+linear algebra is one of the most beautiful fields i've had the privilege to learn. here i collect my thoughts on the subject as well as try to collect the best geometric intutions i've found 
 
-## All uLinear Algebra Posts
+## All linalg Posts
 
 <ul class="post-list">
   {% for post in site.posts %}

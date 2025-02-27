@@ -1,14 +1,14 @@
 ---
 layout: page
-title: umath
+title: math
 permalink: /pages/math.html
 ---
 
-# umath
+# math
 
-This is where I share thoughts, projects, and insights about umath.
+thoughts on the non-graph, non-linalg worlds in mathemagics.
 
-## All umath Posts
+## All math Posts
 
 <ul class="post-list">
   {% for post in site.posts %}

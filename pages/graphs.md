@@ -1,14 +1,14 @@
 ---
 layout: page
-title: ugraphs
+title: graphs
 permalink: /pages/graphs.html
 ---
 
-# ugraphs
+# graphs
 
-This is where I share thoughts, projects, and insights about ugraphs.
+graph theory thoughts, problems, approaches, interesting intuitions.
 
-## All ugraphs Posts
+## All graphs Posts
 
 <ul class="post-list">
   {% for post in site.posts %}

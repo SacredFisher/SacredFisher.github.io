@@ -1,14 +1,14 @@
 ---
 layout: page
-title: uScience
+title: science
 permalink: /pages/sci.html
 ---
 
-# uScience
+# science
 
-This is where I share thoughts, projects, and insights about uScience.
+experiencing the world through concepts, instruments, and monitored interactions. thoughts on science and interesting developments. mostly focused on fringe topics. 
 
-## All uScience Posts
+## All science Posts
 
 <ul class="post-list">
   {% for post in site.posts %}

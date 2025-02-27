@@ -1,14 +1,14 @@
 ---
 layout: page
-title: uMiscellaneous
+title: misc.
 permalink: /pages/misc.html
 ---
 
-# uMiscellaneous
+# misc.
 
-This is where I share thoughts, projects, and insights about uMiscellaneous.
+whatever doesn't fit anywhere else.
 
-## All uMiscellaneous Posts
+## All misc. Posts
 
 <ul class="post-list">
   {% for post in site.posts %}

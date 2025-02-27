@@ -1,14 +1,14 @@
 ---
 layout: page
-title: uμsiq
+title: μsiq
 permalink: /pages/musiq.html
 ---
 
-# uμsiq
+# μsiq
 
-This is where I share thoughts, projects, and insights about uμsiq.
+decorating time. my thoughts interesting music i've listened to.
 
-## All uμsiq Posts
+## All μsiq Posts
 
 <ul class="post-list">
   {% for post in site.posts %}

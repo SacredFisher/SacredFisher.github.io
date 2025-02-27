@@ -1,14 +1,14 @@
 ---
 layout: page
-title: u.Mov
+title: .mov
 permalink: /pages/mov.html
 ---
 
-# u.Mov
+# .mov
 
-This is where I share thoughts, projects, and insights about u.Mov.
+dreaming in real life. my thoughts on the movies i've seen. often, i'll cover the same movie multiple times as i prefer to rewatch movies and reflect on them.
 
-## All u.Mov Posts
+## All .mov Posts
 
 <ul class="post-list">
   {% for post in site.posts %}

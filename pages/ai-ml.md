@@ -1,14 +1,14 @@
 ---
 layout: page
-title: uAI/ML
+title: ai/ml
 permalink: /pages/ai-ml.html
 ---
 
-# uAI/ML
+# ai/ml
 
-This is where I share thoughts, projects, and insights about uAI/ML.
+musings on the machinespirits
 
-## All uAI/ML Posts
+## All ai/ml Posts
 
 <ul class="post-list">
   {% for post in site.posts %}

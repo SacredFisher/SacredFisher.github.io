@@ -1,14 +1,14 @@
 ---
 layout: page
-title: umeditation
+title: meditation
 permalink: /pages/meditation.html
 ---
 
-# umeditation
+# meditation
 
-This is where I share thoughts, projects, and insights about umeditation.
+musings on meditation, meditation technology, possible biological grounding, etc. 
 
-## All umeditation Posts
+## All meditation Posts
 
 <ul class="post-list">
   {% for post in site.posts %}
