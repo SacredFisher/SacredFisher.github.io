@@ -5,7 +5,7 @@ title: Home
 
 # reflections of reflections
 
-putting down the swimming thoughts of my mind.
+sketching the swimming thoughts of my mind.
 
 ## recent posts
 
