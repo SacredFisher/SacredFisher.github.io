@@ -8,7 +8,7 @@ categories: [ai-ml]
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
 
-# Dissecting Attention: What Happens When You Share Different Parts of the Attention Mechanism
+## Dissecting Attention: What Happens When You Share Different Parts of the Attention Mechanism
 
 I've been trying to get into machine learning, and while reading through papers, I stumbled across something that puzzled me. The paper was ALBERT by Google Research - "A Lite BERT"[^albert] that uses parameter sharing tricks to reduce model size without hurting performance. But here's what I couldn't wrap my head around: **how does sharing the same attention weights across every layer not break everything?**
 
