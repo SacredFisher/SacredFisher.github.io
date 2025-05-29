@@ -90,7 +90,7 @@ First, I tested combinations of attention components: KV, KQ, QV, and KQV sharin
 
 The first result was immediate: **performance was identical across all conditions.** Every sharing pattern achieved the same validation accuracy curve, converging to approximately 82% accuracy regardless of which attention components were shared. 
 
-<a href="{{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/multi_param_sharing_accuracy_plot.png" data-lightbox="image-1" data-title="fig 1. Multiple Parameter Sharing Accuracy Plot">
+<a href="{{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/multi_param_sharing_accuracy_plot.png" data-lightbox="image-1" data-title="Multiple Parameter Sharing Accuracy Plot">
   <img src="{{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/multi_param_sharing_accuracy_plot.png" alt="fig 1. Multiple Parameter Sharing Accuracy Plot" style="max-width: 100%;">
 </a>
 
@@ -100,7 +100,9 @@ The result has interesting implications. For there to be absolutely no differenc
 
 While performance remained constant, the attention patterns themselves were dramatically different across sharing conditions. This is where the real interesting patterns emerged:
 
-![Multiple Parameter Sharing Attention Plots]({{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/multi_param_sharing_attention_plots.png)
+<a href="{{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/multi_param_sharing_attention_plots.png" data-lightbox="image-1" data-title="Multiple Parameter Sharing Attention Plots">
+  <img src="{{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/multi_param_sharing_attention_plots.png" alt="fig 2. Multiple Parameter Sharing Attention Plots" style="max-width: 100%;">
+</a>
 
 **KV Sharing** produced the most distributed attention patterns - significantly higher entropy (p<0.001) and lower sparsity (p<0.001). Models with shared keys and values spread their attention more broadly across input tokens rather than focusing intensely on specific positions.
 
@@ -122,9 +124,13 @@ The statistical analysis confirms these observations:
 
 To isolate which components were driving these effects, I tested sharing individual attention parameters: K-only, Q-only, V-only, plus KQV as a reference point.
 
-![Single Parameter Sharing Accuracy Plot]({{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/single_param_sharing_accuracy_plot.png)
+<a href="{{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/single_param_sharing_accuracy_plot.png" data-lightbox="image-1" data-title="Single Parameter Sharing Accuracy Plot">
+  <img src="{{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/single_param_sharing_accuracy_plot.png" alt="fig 3. Single Parameter Sharing Accuracy Plot" style="max-width: 100%;">
+</a>
 
-![Single Parameter Sharing Attention Plots]({{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/single_param_sharing_attention_plots.png)
+<a href="{{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/single_param_sharing_attention_plots.png" data-lightbox="image-1" data-title="fig 4. Multiple Parameter Sharing Accuracy Plot">
+  <img src="{{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/single_param_sharing_attention_plots.png" alt="fig 4.  Multiple Parameter Sharing Accuracy Plot" style="max-width: 100%;">
+</a>
 
 **Key Sharing: The Distribution Driver**
 
@@ -162,6 +168,10 @@ These results reveal distinct functional roles for attention components:
 The attention visualizations provide compelling qualitative evidence for these quantitative findings. Looking at the same sentence processed by different sharing conditions:
 
 *"jim henson's the muppet movie is a charming, funny and brilliant film that can be watched and enjoyed by adults and kids. i feel this is my favorite childhood film because it"*
+
+<a href="{{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/single_param_sharing_attention_plots.png" data-lightbox="image-1" data-title="Multiple Paramter Attention Sharing Heatmaps for head 0">
+  <img src="{{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/multi_param_sharing_heatmaps_head0.png" alt="fig 5. Multiple Paramter Attention Sharing Heatmaps for head 0" style="max-width: 100%;">
+</a>
 
 ![Multiple Paramter Attention Sharing Heatmaps for head 0]({{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/multi_param_sharing_heatmaps_head0.png)
 
