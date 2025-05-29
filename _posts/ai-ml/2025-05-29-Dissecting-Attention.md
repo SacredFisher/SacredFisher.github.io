@@ -230,13 +230,9 @@ Most importantly, **the massive redundancy revealed by unchanged performance acr
 
 I'd also like to say that I am a total neophyte in the field of interpretability and ai--if this is totally wrong, and my approach is unfounded, I am happy to accept that. This blog post and experiment is just my try at pursuing a thought I found interesting, and I hope it was an interesting read for others as well. 
 
+[^albert]: [ALBERT: A Lite BERT](https://arxiv.org/pdf/1909.11942)
+[^mqa]: [Multi-Query and Grouped-Query Attention](https://arxiv.org/pdf/2305.13245)
+[^lisa]: [LiSA: Learnable Sharing Attention](https://arxiv.org/pdf/2408.01890)
+[^bloem]: [Peter Bloem's Transformer Notes](https://peterbloem.nl/blog/transformers)
+[^colab]: [Colab Notebook](https://colab.research.google.com/drive/1y9HnNq7sjE4XAKndIVjdPnvmIpZMSUUs?usp=sharing)
 
-[^albert]: https://arxiv.org/pdf/1909.11942
-
-[^mqa]: https://arxiv.org/pdf/2305.13245
-
-[^lisa]: https://arxiv.org/pdf/2408.01890
-
-[^bloem]: https://peterbloem.nl/blog/transformers
-
-[^colab]: https://colab.research.google.com/drive/1y9HnNq7sjE4XAKndIVjdPnvmIpZMSUUs?usp=sharing
