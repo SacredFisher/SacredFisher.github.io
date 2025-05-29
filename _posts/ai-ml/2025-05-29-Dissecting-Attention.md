@@ -158,17 +158,16 @@ Q sharing and V sharing showed much weaker individual effects:
 
 Here's where things get interesting: **KQV sharing produced massive reductions in head specialization**, but individual K, Q, and V sharing had minimal effects on head diversity. This suggests an emergent interaction - sharing all attention parameters creates constraints that force heads to become similar, but sharing individual components allows heads to maintain diversity through the unshared parameters.
 
-## Interpreting the Attention Patterns
+### Statistical Evidence 
+The statistical analysis provides robust confirmation of these patterns. For Experiment 2 (individual components), the results were particularly clear:
 
-These results reveal distinct functional roles for attention components:
+Performance remains unaffected: No significant differences in test accuracy across any sharing condition (F=0.262, p=0.9016), confirming that attention parameter sharing doesn't impair the model's ability to learn sentiment classification.
+K sharing drives attention distribution changes: Key sharing produced the strongest and most statistically robust effects. For entropy, K sharing showed a massive effect size of 2.031 with perfect statistical power (t=-5.374, p<0.0001). Similarly, for sparsity, K sharing had an effect size of 2.014 with perfect power (t=5.330, p<0.0001). These are exceptionally large effects in attention research, indicating that keys play a fundamental role in determining attention breadth.
 
-**Keys as Semantic Availability Signals**: The strong distributing effect of K sharing suggests that keys encode "what information is available for attention." When keys are shared across layers, all layers have access to the same semantic availability signals, leading to broader attention patterns. This might force the model to develop more general-purpose attention strategies rather than layer-specific focus patterns.
+V sharing shows weaker but significant effects: Value sharing produced smaller but still significant effects on both entropy (t=2.268, p=0.0315) and sparsity (t=-2.162, p=0.0395), though with moderate effect sizes (0.857 and 0.817 respectively) and insufficient statistical power, suggesting these effects need additional validation.
 
-**Queries as Context-Specific Selectors**: The fact that Q sharing has minimal individual effects, but contributes to head similarity when combined with K sharing, suggests queries encode "what we're looking for" in a more context-dependent way. Queries might need more specialization to maintain head diversity.
-
-**Values as Information Extractors**: V sharing shows weak focusing effects, which might indicate that shared value transformations create slight bottlenecks that force more selective attention. This will need more statistical tests to verify though.
-
-**Interaction Effects**: The emergence of head similarity only when multiple components are shared reveals that attention heads maintain diversity through complementary specialization across K, Q, and V. Remove too many degrees of freedom, and heads collapse into similar functions.
+Q sharing shows minimal individual impact: Query sharing alone had no significant effects on entropy, sparsity, or head specialization, with small effect sizes and insufficient power across all metrics.
+KQV sharing uniquely affects head specialization: Only the full KQV sharing condition significantly reduced head specialization (t=-7.494, p<0.0001) with a very large effect size of 2.833. Individual components (K, Q, V) showed no significant effects on head diversity, confirming that the head similarity effect emerges only when multiple components are shared simultaneously.
 
 ## Visual Evidence: Attention Heatmaps
 
@@ -189,14 +188,18 @@ The attention visualizations provide compelling qualitative evidence for these q
 
 This pattern largely holds across heads, with some exceptions. This is not the greatest source of evidence, especially compared to the statistical evidence. But it is the prettiest. I have the other head heatmaps in the colab notebook for those who wish to peruse them, but I’d like to go back over this with more state of the art attention interpretability techniques, like TransformerVis and the like[^colab].
 
+## Interpreting the Attention Patterns
 
-### Statistical Evidence 
-The statistical analysis provides robust confirmation of these patterns. For Experiment 2 (individual components), the results were particularly clear:
-Performance remains unaffected: No significant differences in test accuracy across any sharing condition (F=0.262, p=0.9016), confirming that attention parameter sharing doesn't impair the model's ability to learn sentiment classification.
-K sharing drives attention distribution changes: Key sharing produced the strongest and most statistically robust effects. For entropy, K sharing showed a massive effect size of 2.031 with perfect statistical power (t=-5.374, p<0.0001). Similarly, for sparsity, K sharing had an effect size of 2.014 with perfect power (t=5.330, p<0.0001). These are exceptionally large effects in attention research, indicating that keys play a fundamental role in determining attention breadth.
-V sharing shows weaker but significant effects: Value sharing produced smaller but still significant effects on both entropy (t=2.268, p=0.0315) and sparsity (t=-2.162, p=0.0395), though with moderate effect sizes (0.857 and 0.817 respectively) and insufficient statistical power, suggesting these effects need additional validation.
-Q sharing shows minimal individual impact: Query sharing alone had no significant effects on entropy, sparsity, or head specialization, with small effect sizes and insufficient power across all metrics.
-KQV sharing uniquely affects head specialization: Only the full KQV sharing condition significantly reduced head specialization (t=-7.494, p<0.0001) with a very large effect size of 2.833. Individual components (K, Q, V) showed no significant effects on head diversity, confirming that the head similarity effect emerges only when multiple components are shared simultaneously.
+These results reveal distinct functional roles for attention components:
+
+**Keys as Semantic Availability Signals**: The strong distributing effect of K sharing suggests that keys encode "what information is available for attention." When keys are shared across layers, all layers have access to the same semantic availability signals, leading to broader attention patterns. This might force the model to develop more general-purpose attention strategies rather than layer-specific focus patterns.
+
+**Queries as Context-Specific Selectors**: The fact that Q sharing has minimal individual effects, but contributes to head similarity when combined with K sharing, suggests queries encode "what we're looking for" in a more context-dependent way. Queries might need more specialization to maintain head diversity.
+
+**Values as Information Extractors**: V sharing shows weak focusing effects, which might indicate that shared value transformations create slight bottlenecks that force more selective attention. This will need more statistical tests to verify though.
+
+**Interaction Effects**: The emergence of head similarity only when multiple components are shared reveals that attention heads maintain diversity through complementary specialization across K, Q, and V. Remove too many degrees of freedom, and heads collapse into similar functions.
+
 These statistical results provide compelling evidence that different attention components have distinct and separable functions, with keys serving as the primary drivers of attention distribution patterns.
 These experiments provide compelling evidence for the hypothesis and for semantic chains. The results suggest that attention components do have separable semantic functions:
 
