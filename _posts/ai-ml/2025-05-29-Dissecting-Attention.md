@@ -1,4 +1,3 @@
-
 ---
 layout: post
 title: "Dissecting Attention: What Happens When You Share Different Parts of the Attention Mechanism"
