@@ -1,4 +1,11 @@
 
+---
+layout: post
+title: "Dissecting Attention: What Happens When You Share Different Parts of the Attention Mechanism"
+date: 2025-05-29
+categories: [ai-ml]
+---
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
 
@@ -169,11 +176,9 @@ The attention visualizations provide compelling qualitative evidence for these q
 
 *"jim henson's the muppet movie is a charming, funny and brilliant film that can be watched and enjoyed by adults and kids. i feel this is my favorite childhood film because it"*
 
-<a href="{{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/single_param_sharing_attention_plots.png" data-lightbox="image-1" data-title="Multiple Paramter Attention Sharing Heatmaps for head 0">
+<a href="{{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/multi_param_sharing_heatmaps_head0.png" data-lightbox="image-1" data-title="Multiple Paramter Attention Sharing Heatmaps for head 0">
   <img src="{{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/multi_param_sharing_heatmaps_head0.png" alt="fig 5. Multiple Paramter Attention Sharing Heatmaps for head 0" style="max-width: 100%;">
 </a>
-
-![Multiple Paramter Attention Sharing Heatmaps for head 0]({{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/multi_param_sharing_heatmaps_head0.png)
 
 **Head 0** shows clear structural differences across conditions:
 - **No sharing**: Focused attention on specific tokens with clear patterns

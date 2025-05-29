@@ -1,4 +1,9 @@
-
+---
+layout: post
+title: "Acausal (Atemporal) Negotiation and Interstellar"
+date: 2025-02-28
+categories: [mov]
+---
 
 # Acausal (Atemporal) Negotiation and Interstellar
 
