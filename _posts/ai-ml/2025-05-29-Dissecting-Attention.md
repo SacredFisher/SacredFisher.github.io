@@ -35,9 +35,9 @@ The fact that attention sharing works better than FFN sharing directly contradic
 
 ALBERT wasn't alone in challenging the assumptions about parameter sharing. Other research, some earlier, and some later, has shown that sharing attention components works across multiple contexts:
 
-**Multi-Query Attention (MQA)** and **Grouped-Query Attention (GQA)** [^mqa] share key and value projections across attention heads within the same layer. In MQA, all heads share a single set of key and value parameters while maintaining separate queries. GQA uses partial sharing - groups of heads share keys and values. Both achieve significant computational savings with minimal performance loss, suggesting that the KV components contain more redundancy than previously assumed. This is for a decoder model, unlike ALBERT which is an encoder, suggesting that this may be something to do with attention itself rather than architectural differences. 
+**Multi-Query Attention (MQA)** and **Grouped-Query Attention (GQA)**[^mqa] share key and value projections across attention heads within the same layer. In MQA, all heads share a single set of key and value parameters while maintaining separate queries. GQA uses partial sharing - groups of heads share keys and values. Both achieve significant computational savings with minimal performance loss, suggesting that the KV components contain more redundancy than previously assumed. This is for a decoder model, unlike ALBERT which is an encoder, suggesting that this may be something to do with attention itself rather than architectural differences. 
 
-**LiSA (Learnable Sharing Attention)** [^lisa] revealed something even more fundamental: attention weights are remarkably similar across transformer layers, with most layers showing JS divergence scores below 0.05. They found that when training from scratch with direct weight sharing across layers, models maintained lossless performance. Crucially, while attention patterns were similar across layers, the Q, K, and V matrices themselves captured different features - suggesting that similar attention patterns can emerge from different underlying representations. This is also used on a decoder model. 
+**LiSA (Learnable Sharing Attention)**[^lisa] revealed something even more fundamental: attention weights are remarkably similar across transformer layers, with most layers showing JS divergence scores below 0.05. They found that when training from scratch with direct weight sharing across layers, models maintained lossless performance. Crucially, while attention patterns were similar across layers, the Q, K, and V matrices themselves captured different features - suggesting that similar attention patterns can emerge from different underlying representations. This is also used on a decoder model. 
 
 These results point to a fundamental pattern: **sharing certain attention components works consistently across different architectural choices and training regimes**. This isn't a quirk of one particular model or training procedure - it appears to be revealing something deeper about how attention mechanisms function.
 
@@ -68,7 +68,7 @@ What follows is my experimental investigation into which parts of attention can 
 
 ## Experimental Setup
 
-To test my hypothesis, I built a simple BERT-style transformer and trained it on IMDB sentiment analysis. The experimental design was straightforward but rigorous: share different combinations of attention parameters (K, Q, V) across all layers and measure how this affects both task performance and attention behavior. I also cribbed pretty hard from Peter Bloem’s excellent set of notes regarding attention and transformers:[^bloem]
+To test my hypothesis, I built a simple BERT-style transformer and trained it on IMDB sentiment analysis. The experimental design was straightforward but rigorous: share different combinations of attention parameters (K, Q, V) across all layers and measure how this affects both task performance and attention behavior. I also cribbed pretty hard from Peter Bloem’s excellent set of notes regarding attention and transformers[^bloem]:
 
 To ensure statistical reliability, I ran each condition for 30 epochs across 15 different random seeds and performed comprehensive statistical analysis (ANOVA, power analysis, t-tests). This approach let me distinguish real effects from random variation. 
 
@@ -182,7 +182,7 @@ The attention visualizations provide compelling qualitative evidence for these q
 - **QV sharing**: Sharp focus on specific tokens
 - **KQV sharing**: Simplified patterns with less complexity
 
-This pattern largely holds across heads, with some exceptions. This is not the greatest source of evidence, especially compared to the statistical evidence. But it is the prettiest. I have the other head heatmaps in the colab notebook for those who wish to peruse them, but I’d like to go back over this with more state of the art attention interpretability techniques, like TransformerVis and the like. [^colab]
+This pattern largely holds across heads, with some exceptions. This is not the greatest source of evidence, especially compared to the statistical evidence. But it is the prettiest. I have the other head heatmaps in the colab notebook for those who wish to peruse them, but I’d like to go back over this with more state of the art attention interpretability techniques, like TransformerVis and the like[^colab].
 
 
 ### Statistical Evidence 
@@ -223,12 +223,12 @@ Most importantly, **the massive redundancy revealed by unchanged performance acr
 I'd also like to say that I am a total neophyte in the field of interpretability and ai--if this is totally wrong, and my approach is unfounded, I am happy to accept that. This blog post and experiment is just my try at pursuing a thought I found interesting, and I hope it was an interesting read for others as well. 
 
 
-[^albert] https://arxiv.org/pdf/1909.11942
+[^albert]: https://arxiv.org/pdf/1909.11942
 
-[^mqa] https://arxiv.org/pdf/2305.13245
+[^mqa]: https://arxiv.org/pdf/2305.13245
 
-[^lisa] https://arxiv.org/pdf/2408.01890
+[^lisa]: https://arxiv.org/pdf/2408.01890
 
-[^bloem] https://peterbloem.nl/blog/transformers
+[^bloem]: https://peterbloem.nl/blog/transformers
 
-[^colab] https://colab.research.google.com/drive/1y9HnNq7sjE4XAKndIVjdPnvmIpZMSUUs?usp=sharing
+[^colab]: https://colab.research.google.com/drive/1y9HnNq7sjE4XAKndIVjdPnvmIpZMSUUs?usp=sharing
