@@ -1,3 +1,7 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+
 # Dissecting Attention: What Happens When You Share Different Parts of the Attention Mechanism
 
 I've been trying to get into machine learning, and while reading through papers, I stumbled across something that puzzled me. The paper was ALBERT by Google Research - "A Lite BERT"[^albert] that uses parameter sharing tricks to reduce model size without hurting performance. But here's what I couldn't wrap my head around: **how does sharing the same attention weights across every layer not break everything?**
@@ -64,7 +68,7 @@ What follows is my experimental investigation into which parts of attention can 
 
 ## Experimental Setup
 
-To test my hypothesis, I built a simple BERT-style transformer and trained it on IMDB sentiment analysis. The experimental design was straightforward but rigorous: share different combinations of attention parameters (K, Q, V) across all layers and measure how this affects both task performance and attention behavior. I also cribbed pretty hard from Peter Bloem’s excellent set of notes regarding attention and transformers: Transformers from scratch | peterbloem.nl
+To test my hypothesis, I built a simple BERT-style transformer and trained it on IMDB sentiment analysis. The experimental design was straightforward but rigorous: share different combinations of attention parameters (K, Q, V) across all layers and measure how this affects both task performance and attention behavior. I also cribbed pretty hard from Peter Bloem’s excellent set of notes regarding attention and transformers:[^bloem]
 
 To ensure statistical reliability, I ran each condition for 30 epochs across 15 different random seeds and performed comprehensive statistical analysis (ANOVA, power analysis, t-tests). This approach let me distinguish real effects from random variation. 
 
@@ -86,7 +90,9 @@ First, I tested combinations of attention components: KV, KQ, QV, and KQV sharin
 
 The first result was immediate: **performance was identical across all conditions.** Every sharing pattern achieved the same validation accuracy curve, converging to approximately 82% accuracy regardless of which attention components were shared. 
 
-![Multiple Parameter Sharing Accuracy Plot]({{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/multi_param_sharing_accuracy_plot.png)
+<a href="{{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/multi_param_sharing_accuracy_plot.png" data-lightbox="image-1" data-title="fig 1. Multiple Parameter Sharing Accuracy Plot">
+  <img src="{{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/multi_param_sharing_accuracy_plot.png" alt="fig 1. Multiple Parameter Sharing Accuracy Plot" style="max-width: 100%;">
+</a>
 
 The result has interesting implications. For there to be absolutely no difference is still surprising. It suggests that for this task, there's massive redundancy in the attention mechanism - the model can achieve the same functional performance even when forced to reuse attention parameters across all layers. However, I should note another important caveat: IMDB sentiment analysis might not be demanding enough to reveal performance differences. The bulk of learning in small models often happens in the embedding layer (which contains most parameters), so the attention mechanism might not be the bottleneck for this particular task. This may just be a really easy question that could be solved with just a clever embedding layer, and no attention needed at all. I discuss this more in the limitations and future experiments section. 
 
@@ -212,5 +218,7 @@ I'd also like to say that I am a total neophyte in the field of interpretability
 [^mqa] https://arxiv.org/pdf/2305.13245
 
 [^lisa] https://arxiv.org/pdf/2408.01890
+
+[^bloem] https://peterbloem.nl/blog/transformers
 
 [^colab] https://colab.research.google.com/drive/1y9HnNq7sjE4XAKndIVjdPnvmIpZMSUUs?usp=sharing
