@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Dissecting Attention: What Happens When You Share Different Parts of the Attention Mechanism"
+title: "Dissecting Attention"
 date: 2025-05-29
 categories: [ai-ml]
 ---
