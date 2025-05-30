@@ -29,13 +29,13 @@ The conventional wisdom, supported by papers like "What Does BERT Look At?" and 
 
 This is what makes ALBERT's results so puzzling. ALBERT employs aggressive parameter sharing across transformer layers, what the paper refers to as **cross-layer parameter sharing**. The same attention weights (queries, keys, and values) are reused across all 12 layers. It even experiments with sharing the FFN weights as well to surprisingly similar results. There are a few other optimizations like factorizing the embedding so that the first hidden layer is independent of the embedding size, as well as using only masked language modeling (MLM) as a task for training since it was demonstrated that this training strategy was more effective than the original BERT paper’s strategy of using both MLM and next sentence prediction. However, since these are less important to the attention weights being shared, I’ll limit my discussion of these changes. 
 
-The result? **ALBERT-base matches or exceeds BERT-base performance while using only 18M parameters instead of 110M** - a 70% reduction. When they tested different sharing strategies, they found:
+The result? **ALBERT-base matches or exceeds BERT-base performance while using only 18M parameters instead of 110M** - a 83% reduction. When they tested different sharing strategies, they found:
 
 - Sharing only attention parameters: minimal performance loss (~1-2%)
-- Sharing only feed-forward parameters: moderate performance loss (~3-4%) 
-- Sharing both attention and FFN parameters: larger but still acceptable loss (~5-7%)
+- Sharing only feed-forward parameters: moderate performance loss (~2-3%) 
+- Sharing both attention and FFN parameters: larger but still acceptable loss (~3-4%)
 
-The fact that attention sharing works better than FFN sharing directly contradicts our understanding. Feed-forward networks are often viewed as "parameter storage" - collections of learned facts and transformations. If anything should be shareable, it should be these fact-storage components, not the dynamic attention mechanisms that supposedly need to specialize for different levels of abstraction. Yet we see the opposite dynamic here. Note that sharing both attention and FFN parameters creates an architecture that is basically one ‘real’ layer getting passed the information over and over again–a step back towards the RNN structure that transformers evolved from. The mystery still remains that sharing attention parameters results in little to no performance loss.  
+The fact that attention sharing works better than FFN sharing directly contradicts our understanding. Feed-forward networks are often viewed as "parameter storage" - collections of learned facts and transformations. If anything should be shareable, it should be these fact-storage components, not the dynamic attention mechanisms that supposedly need to specialize for different levels of abstraction. Yet we see the opposite dynamic here. Note that sharing both attention and FFN parameters creates an architecture that is basically one ‘real’ layer getting passed the information over and over again–a step back towards the RNN structure that transformers evolved from. The mystery still remains that sharing attention parameters results in little to no performance loss.  The paper explains this as possible due to redundancy in transformer layers, where similar features are learned from between the layers. 
 
 ## The Broader Landscape of Parameter Sharing 
 
@@ -110,21 +110,21 @@ While performance remained constant, the attention patterns themselves were dram
   <img src="{{ site.baseurl }}/assets/images/2025-05-29-Dissecting-Attention/multi_param_sharing_attention_plots.png" alt="fig 2. Multiple Parameter Sharing Attention Plots" style="max-width: 100%;">
 </a>
 
-**KV Sharing** produced the most distributed attention patterns - significantly higher entropy (p<0.001) and lower sparsity (p<0.001). Models with shared keys and values spread their attention more broadly across input tokens rather than focusing intensely on specific positions.
+**KV Sharing** produced the most distributed attention patterns - significantly higher entropy and lower sparsity. Models with shared keys and values spread their attention more broadly across input tokens rather than focusing intensely on specific positions.
 
 **QV Sharing** showed the opposite effect - slightly lower entropy and higher sparsity, suggesting more focused attention patterns. However, these effects were smaller and less consistent than KV sharing.
 
-**KQ Sharing** had a qualitatively different impact, primarily affecting head specialization. Models with shared queries and keys showed significantly higher head correlation (p<0.001), meaning attention heads became much more similar to each other.
+**KQ Sharing** had a qualitatively different impact, primarily affecting head specialization. Models with shared queries and keys showed significantly higher head correlation , meaning attention heads became much more similar to each other.
 
 **KQV Sharing (ALBERT-style)** combined these effects, showing both the head similarity effect and moderate changes in attention distribution.
 I also measured attention progression across layers - how attention to individual tokens changes as you go deeper into the model - thinking this might reveal interesting abstraction patterns. But to be completely honest, I can't make heads or tails of those results. The patterns seem noisy and I'm not sure if there's a signal there or if I need better analysis tools. I’ll definitely need to do more research into current interpretability studies and what the state of the art in studying attention heads looks like. 
 
 ### Statistical Validation
 The statistical analysis confirms these observations:
-**Accuracy Metrics**: No significant differences (p=0.7952) - so sharing at least doesn't hurt performance
-**Entropy**: Highly significant differences (p<0.0001) with KV and QV showing significant deviations from baseline
-**Sparsity**: Highly significant differences (p<0.0001) with KV and QV effects
-**Head Specialization**: Highly significant differences (p<0.0001) with KQ and KQV showing reduced head diversity
+**Accuracy Metrics**: No significant differences - so sharing at least doesn't hurt performance
+**Entropy**: Significant differences with KV (p=0.0015) and QV (p=0.0042) showing significant deviations from baseline
+**Sparsity**: Significant differences with KV (p=0.0024) and QV (p=0.0052) effects
+**Head Specialization**: Significant differences with KQ (p<0.0001) and KQV (p<0.0001) showing reduced head diversity
 
 ## Experiment 2: Individual Component Analysis
 
@@ -141,8 +141,8 @@ To isolate which components were driving these effects, I tested sharing individ
 **Key Sharing: The Distribution Driver**
 
 The results clearly identified **K sharing as the primary driver of attention distribution effects**. Models with shared keys consistently showed:
-- Highest attention entropy (p<0.001)
-- Lowest attention sparsity (p<0.001)
+- Highest attention entropy
+- Lowest attention sparsity 
 - Robust effects across all statistical tests
 
 This pattern was remarkably consistent - whenever keys were shared (K-only, KV, KQ, KQV conditions), attention became more distributed. This suggests that keys play a special role in determining attention breadth.
@@ -160,13 +160,13 @@ Here's where things get interesting: **KQV sharing produced massive reductions i
 ### Statistical Evidence 
 The statistical analysis provides robust confirmation of these patterns. For Experiment 2 (individual components), the results were particularly clear:
 
-Performance remains unaffected: No significant differences in test accuracy across any sharing condition (F=0.262, p=0.9016), confirming that attention parameter sharing doesn't impair the model's ability to learn sentiment classification.
+Performance remains unaffected: No significant differences in test accuracy across any sharing condition (ANOVA: F=0.262, p=0.9016), confirming that attention parameter sharing doesn't impair the model's ability to learn sentiment classification.
 K sharing drives attention distribution changes: Key sharing produced the strongest and most statistically robust effects. For entropy, K sharing showed a massive effect size of 2.031 with perfect statistical power (t=-5.374, p<0.0001). Similarly, for sparsity, K sharing had an effect size of 2.014 with perfect power (t=5.330, p<0.0001). These are exceptionally large effects in attention research, indicating that keys play a fundamental role in determining attention breadth.
 
-V sharing shows weaker but significant effects: Value sharing produced smaller but still significant effects on both entropy (t=2.268, p=0.0315) and sparsity (t=-2.162, p=0.0395), though with moderate effect sizes (0.857 and 0.817 respectively) and insufficient statistical power, suggesting these effects need additional validation.
+V sharing shows weaker but significant effects: Value sharing produced smaller but still significant effects on both entropy (p=0.0315) and sparsity (p=0.0395), though with moderate effect sizes (0.857 and 0.817 respectively) and insufficient statistical power, suggesting these effects need additional validation.
 
 Q sharing shows minimal individual impact: Query sharing alone had no significant effects on entropy, sparsity, or head specialization, with small effect sizes and insufficient power across all metrics.
-KQV sharing uniquely affects head specialization: Only the full KQV sharing condition significantly reduced head specialization (t=-7.494, p<0.0001) with a very large effect size of 2.833. Individual components (K, Q, V) showed no significant effects on head diversity, confirming that the head similarity effect emerges only when multiple components are shared simultaneously.
+KQV sharing uniquely affects head specialization: Only the full KQV sharing condition significantly reduced head specialization (p<0.0001) with a very large effect size of 2.833. Individual components (K, Q, V) showed no significant effects on head diversity, confirming that the head similarity effect emerges only when multiple components are shared simultaneously.
 
 ## Visual Evidence: Attention Heatmaps
 
@@ -225,7 +225,7 @@ Future experiments that would strengthen these findings include:
 - **Comprehensive task evaluation**: Testing across diverse benchmarks to ensure findings generalize beyond sentiment analysis
 - **Transfer learning studies**: Investigating whether the more general concepts potentially learned through K sharing actually improve transfer performance
 
-Most importantly, **the massive redundancy revealed by unchanged performance across all sharing conditions** indicates that current attention mechanisms may be significantly over-parameterized. This opens exciting possibilities for more efficient architectures that selectively share components based on their semantic roles. 
+Most importantly, **the massive redundancy revealed by unchanged performance across all sharing conditions** indicates that current attention mechanisms may be significantly over-parameterized. This opens exciting possibilities for more efficient architectures that selectively share components based on their semantic roles.
 
 I'd also like to say that I am a total neophyte in the field of interpretability and ai--if this is totally wrong, and my approach is unfounded, I am happy to accept that. This blog post and experiment is just my try at pursuing a thought I found interesting, and I hope it was an interesting read for others as well. 
 
